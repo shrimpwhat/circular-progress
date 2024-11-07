@@ -6,14 +6,14 @@ import "./styles.scss";
 class CircularProgress {
     static className = "circular-progress";
 
-    isHidden: boolean = false;
-    isAnimated: boolean = false;
-    progress: number = 0;
+    isHidden = false;
+    isAnimated = false;
+    progress = 0;
 
     #currentElement: SVGSVGElement;
     #frontCircle: SVGCircleElement;
 
-    private requestId: number = 0;
+    private requestId = 0;
 
     /**
      * Добавляет CircularProgress в указанный контейнер.
