@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress</title>
+  </head>
+  <body id="body">
+    <div class="app">
+      <h1 class="title">Progress</h1>
+      <section>
+        <div id="progress-container" class="progress-container"></div>
+      </section>
+      <section>
+        <div class="controls">
+          <div class="control">
+            <input
+              class="value-input"
+              type="number"
+              id="value"
+              min="0"
+              max="100"
+              value="0"
+            />
+            <label for="value">Value</label>
+          </div>
+
+          <div class="control">
+            <label for="animate">
+              <input type="checkbox" id="animate" />
+              <span class="slider"></span>
+            </label>
+            <label for="animate">Animate</label>
+          </div>
+
+          <div class="control">
+            <label for="hide">
+              <input type="checkbox" id="hide" />
+              <span class="slider"></span>
+            </label>
+            <label for="hide">Hide</label>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>

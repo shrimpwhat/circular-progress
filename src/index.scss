@@ -1,0 +1,115 @@
+:root {
+  --primary-color: #005bff;
+  --secondary-color: #dae6ec;
+  font-family: Arial;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  position: relative;
+  padding: 15px;
+  box-sizing: border-box;
+  flex-direction: column;
+
+  @media (orientation: landscape) {
+    flex-direction: row;
+    gap: 100px;
+    justify-content: center;
+  }
+}
+
+.progress-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+
+  --circular-progress-stroke-width: 10%;
+  --circular-progress-stroke-color: var(--primary-color);
+  --circular-progress-empty-color: var(--secondary-color);
+}
+
+.title {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  margin: 0;
+  font-size: 20px;
+}
+
+.controls {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  gap: 20px;
+}
+
+.value-input {
+  width: 60px;
+  height: 40px;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 34px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1.4rem;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    display: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
+}
+
+.slider {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  display: inline-block;
+  background-color: var(--secondary-color);
+  border-radius: 34px;
+  transition: background-color 0.1s;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  width: 32px;
+  top: 4px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.1s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  left: calc(100% - 36px);
+}

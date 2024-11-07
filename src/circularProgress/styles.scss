@@ -1,0 +1,47 @@
+.circular-progress {
+  /* Текущее значение прогресса, от 0 до 100 */
+  --value: 0;
+  /* 
+    Ширина линии индикатора, в процентах от диаметра:
+    50% - полностью заполненный круг
+    Либо любые валидные значения для stroke-width
+  */
+  --stroke-width: var(--circular-progress-stroke-width, 10%);
+  /* Цвет линии индикатора */
+  --stroke-color: var(--circular-progress-stroke-color, #005bff);
+  /* Цвет незаполненной части линии индикатора  */
+  --empty-color: var(--circular-progress-empty-color, #eaf0f6);
+
+  --center: 50%;
+  --radius: calc((100% - var(--stroke-width)) / 2);
+  --length: calc(var(--radius) * pi * 2);
+  --dash: calc((var(--value) * var(--length)) / 100);
+  --empty: calc(var(--length) - var(--dash));
+
+  width: 100%;
+  height: 100%;
+
+  &_hiden {
+    visibility: hidden;
+  }
+
+  circle {
+    cx: var(--center);
+    cy: var(--center);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+  }
+
+  &__back {
+    stroke: var(--empty-color);
+  }
+
+  &__front {
+    transform: rotate(-90deg);
+    transform-origin: var(--center) var(--center);
+    stroke-dasharray: var(--dash) var(--empty);
+    transition: stroke-dasharray 0.2s;
+    stroke: var(--stroke-color);
+  }
+}
