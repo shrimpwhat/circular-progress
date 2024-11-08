@@ -13,23 +13,23 @@ import CircularProgress from "./circularProgress";
 const circularProgress = new CircularProgres("progress-container");
 
 circularProgress.setProgress(40);
-circularProgress.progress; // 40
+circularProgress.getProgress(); // 40
 
 // ...
 
 circularProgress.startAnimation();
-circularProgress.isAnimated; // true
+circularProgress.isAnimated(); // true
 
 circularProgress.stopAnimation();
-circularProgress.isAnimated; // false
+circularProgress.isAnimated(); // false
 
 // ...
 
 circularProgress.hide();
-circularProgress.isHidden; // true
+circularProgress.isHidden(); // true
 
 circularProgress.show();
-circularProgress.isHidden; // false
+circularProgress.isHidden(); // false
 ```
 
 ### Конструктор
@@ -38,12 +38,15 @@ circularProgress.isHidden; // false
 CircularProgress(containerId: string, spinInterval?: number): CircularProgress
 ```
 
-- `containerId` ID контейнера, внутрь которого будет добавлен элемент.
+- `containerId` ID контейнера, внутрь которого будет добавлен элемент
 - `spinInterval` Интервал вращения во время анимации в миллисекундах. По умолчанию `1000`
 
-`circularProgress.hide()` скрывает блок, но не контейнер родителя. Но так как родитель с фиксированными размерами, то будет оставаться его пустое место в потоке элементов. Возможно, когда-то понадобится оставить место под индикатор, но не показывать его самого, тогда текущая логика будет как раз. А если же нужно полностью убрать пустое место, то пусть разработчик самостоятельно удаляет родительский контейнер.
+`CircularProgress.hide()` скрывает блок, но не контейнер родителя. Но так как родитель с фиксированными размерами, то будет оставаться его пустое место в потоке элементов. Возможно, когда-то понадобится оставить место под индикатор, но не показывать его самого, тогда текущая логика будет как раз. А если же нужно полностью убрать пустое место, то пусть разработчик самостоятельно удаляет родительский контейнер.
 
-Также `circularProgress.hide()` не останавливает анимацию, если она запущена. В тз было написано `isAnimated` - _независимое_ состояние, я понял это так.
+Также `CircularProgress.hide()` не останавливает анимацию, если она запущена. В тз было написано `isAnimated` - _независимое_ состояние, я понял это так.
+
+`CircularProgress.stopAnimation()` не сбрасывает угол поворота, а просто останавливает анимацию.
+`CircularProgress.startAnimation()` продолжает с места остановки. Чтобы сбросить угол поворота, нужно вызвать `CircularProgress.resetRotation()`.
 
 ## Стили
 

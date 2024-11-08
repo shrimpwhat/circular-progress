@@ -4,16 +4,15 @@ import "./styles.scss";
  * Класс для создания кругового индикатора прогресса. Занимает все свободное пространство контейнера.
  */
 class CircularProgress {
-    static className = "circular-progress";
-
-    isHidden = false;
-    isAnimated = false;
-    progress = 0;
-    spinInterval: number;
+    static readonly className = "circular-progress";
 
     #currentElement: SVGSVGElement;
     #frontCircle: SVGCircleElement;
 
+    private hidden = false;
+    private animated = false;
+    private progress = 0;
+    private spinInterval: number;
     private requestId = 0;
 
     /**
@@ -72,7 +71,7 @@ class CircularProgress {
      * Скрывает CircularProgress
      */
     hide() {
-        this.isHidden = true;
+        this.hidden = true;
         this.#currentElement.classList.add(
             `${CircularProgress.className}_hiden`
         );
@@ -82,7 +81,7 @@ class CircularProgress {
      * Показывает CircularProgress, если он был скрыт
      */
     show() {
-        this.isHidden = false;
+        this.hidden = false;
         this.#currentElement.classList.remove(
             `${CircularProgress.className}_hiden`
         );
@@ -92,7 +91,7 @@ class CircularProgress {
      * Запускает анимацию вращения
      */
     startAnimation() {
-        this.isAnimated = true;
+        this.animated = true;
         let prev = performance.now();
         const degPerSec = this.spinInterval / 360;
         let currentRotation = parseFloat(this.#frontCircle.style.rotate) || 0;
@@ -114,8 +113,27 @@ class CircularProgress {
      * Останавливает анимацию вращения
      */
     stopAnimation() {
-        this.isAnimated = false;
+        this.animated = false;
         cancelAnimationFrame(this.requestId);
+    }
+
+    /**
+     * Сбрасывает угол поворота после анимации
+     */
+    resetRotation() {
+        this.#frontCircle.style.rotate = "0deg";
+    }
+
+    isAnimated() {
+        return this.animated;
+    }
+
+    isHidden() {
+        return this.hidden;
+    }
+
+    getProgress() {
+        return this.progress;
     }
 }
 
