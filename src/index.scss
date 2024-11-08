@@ -67,6 +67,10 @@ body {
   text-align: center;
   font-size: 1.4rem;
 
+  &:focus-visible {
+    outline: none;
+  }
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     display: none;
