@@ -9,6 +9,7 @@ class CircularProgress {
     isHidden = false;
     isAnimated = false;
     progress = 0;
+    spinInterval: number;
 
     #currentElement: SVGSVGElement;
     #frontCircle: SVGCircleElement;
@@ -17,9 +18,12 @@ class CircularProgress {
 
     /**
      * Добавляет CircularProgress в указанный контейнер.
-     * @param containerId - ID контейнера, внутрь которого будет добавлен элемент
+     * @param containerId ID контейнера, внутрь которого будет добавлен элемент.
+     * @param spinInterval Интервал вращения во время анимации в миллисекундах. По умолчанию `1000`
      */
-    constructor(containerId: string) {
+    constructor(containerId: string, spinInterval: number = 1000) {
+        this.spinInterval = spinInterval;
+
         const containerEl = document.getElementById(containerId);
 
         if (!containerEl) {
@@ -89,14 +93,21 @@ class CircularProgress {
      */
     startAnimation() {
         this.isAnimated = true;
-        const rotate = () => {
-            let currentRotation =
-                parseFloat(this.#frontCircle.style.rotate) || 0;
-            currentRotation = currentRotation % 360;
-            this.#frontCircle.style.rotate = `${currentRotation + 1}deg`;
+        let prev = performance.now();
+        const degPerSec = this.spinInterval / 360;
+        let currentRotation = parseFloat(this.#frontCircle.style.rotate) || 0;
+
+        const rotate = (time: number) => {
+            if (time - prev > degPerSec) {
+                currentRotation += (time - prev) / degPerSec;
+                prev = time;
+                currentRotation %= 360;
+                this.#frontCircle.style.rotate = `${currentRotation}deg`;
+            }
+
             this.requestId = requestAnimationFrame(rotate);
         };
-        rotate();
+        requestAnimationFrame(rotate);
     }
 
     /**
